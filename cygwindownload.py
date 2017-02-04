@@ -7,7 +7,10 @@ import os
 strUrl = 'http://mirrors.163.com/cygwin/x86_64/';
 path = 'H:\\mytest';
 tempUrl = ''.join(strUrl);
-tempName = '';
+listDirectory = [];
+listDirectoryNumber = [];
+
+
 #获取html 信息
 def getHtml(strUrl):
     page = urllib.urlopen(strUrl); #打开连接
@@ -31,28 +34,41 @@ def getFileNameList(strHtml):
 def downLoad(listFileName):
     
     global tempUrl;
-    global tempName;
+    global listDirectory;
+    number = len(listFileName);
+   
+    
+
+
     for name in listFileName:
         nCount = name.find('/');
-        if nCount == -1:     #nCount 为-1 则是目录 继续进 
+        if nCount == -1:                #nCount 为-1 则是目录 继续进 
             #print "不是目录下载";
-            print name; 
+            print name;                     
+            
+            number = number - 1;  
+            if number == 1:
+                tempUrl = tempUrl[:len(tempUrl) - len(listDirectory[-1])];
+                listDirectory.pop();
+        
         else:
+            listDirectory.append(name);
             #print "是目录继续进入查找文件";
-            temp = tempUrl + name;
-            tempUrl = temp;
-            tempName = name;
-            html = getHtml(temp);
+            tempUrl = tempUrl + name;
+            html = getHtml(tempUrl);
             listTemp = getFileNameList(html);
-            return downLoad(listTemp);
-    return;
+            downLoad(listTemp);
+        
     
       
 if __name__ == "__main__":
     
-    
+
     #os.mkdir(path);    
     html = getHtml(strUrl);
     listFileName = getFileNameList(html);
     downLoad(listFileName);
     
+
+
+    #number = number - n;        
