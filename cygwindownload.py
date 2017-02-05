@@ -62,7 +62,7 @@ def downLoad(listFileName):
       
 if __name__ == "__main__":
     
-    #os.mkdir(path);    
+    os.mkdir(path);  #创建文件夹  
     html = getHtml(strUrl);
     listFileName = getFileNameList(html);
     downLoad(listFileName);
