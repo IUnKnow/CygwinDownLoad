@@ -28,6 +28,7 @@ def getFileNameList(strHtml):
             fileNameList.remove('../');
         
     print fileNameList;
+    
     return fileNameList; 
 
       
@@ -38,13 +39,11 @@ def downLoad(listFileName):
     number = len(listFileName);
    
     
-
-
     for name in listFileName:
         nCount = name.find('/');
         if nCount == -1:                #nCount 为-1 则是目录 继续进 
             #print "不是目录下载";
-            print name;                     
+            print name;    
             
             number = number - 1;  
             if number == 1:
@@ -63,12 +62,7 @@ def downLoad(listFileName):
       
 if __name__ == "__main__":
     
-
     #os.mkdir(path);    
     html = getHtml(strUrl);
     listFileName = getFileNameList(html);
     downLoad(listFileName);
-    
-
-
-    #number = number - n;        
